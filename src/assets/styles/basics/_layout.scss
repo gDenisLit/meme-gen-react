@@ -1,0 +1,15 @@
+.main-layout {
+    display: grid;
+    grid-template-columns: $layoutPadding 1fr $layoutPadding;
+    grid-template-rows: auto 1fr auto;
+
+    >* {
+        grid-column: 2;
+    }
+
+    >*.full {
+        grid-column: 1 / -1;
+    }
+}
+
+

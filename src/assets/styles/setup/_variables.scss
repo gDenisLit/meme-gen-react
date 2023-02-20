@@ -1,0 +1,23 @@
+// COLOR PALETTE
+$clr1: #9C0F48;
+$clr2: #151515;
+$clr3: #5f5c5a;
+$clr4: #70707010;
+$clr5: rgba(163, 161, 161, 0.888);
+
+
+// FONTS
+$f-regular: Dosis-Regular;
+$f-bold: Dosis-Bold;
+
+// LAYOUT
+$layoutPadding: 50px;
+
+// LAYOUT BREAKPOINTS
+$break-narrow: 640px;
+$break-normal: 960px;
+$break-wide: 1024px;
+
+$padded-break-narrow: $break-narrow + $layoutPadding * 2;
+$padded-break-normal: $break-normal + $layoutPadding * 2;
+$padded-break-wide: $break-wide + $layoutPadding * 2;

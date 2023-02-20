@@ -1,0 +1,69 @@
+::selection {
+    background-color: $clr3;
+    color: $clr3;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html { 
+   font-family: $f-regular, sans-serif; 
+   color: $clr2;
+   line-height: 1.8;
+   line-height: lh(26px);
+   min-height: 100vh;
+
+   @media (max-width: 1300px) {
+       font-size: 13px;
+   }
+}
+
+body {
+    margin: 0;
+    min-height: 100%;
+
+    @include for-normal-layout {
+        &.sidebar-open {
+            overflow: hidden;
+        }
+    }
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 500;
+    margin: 0 1rem 0.4rem;
+}
+
+h1 {
+    font-size: rem(60px);
+}
+
+h2 {
+    font-size: rem(36px);
+}
+
+h3 {
+    font-size: em(29px);
+}
+
+img {
+    width: 100%;
+}
+
+
+// links
+a {
+    color: $clr1;
+    text-decoration: none;
+
+    &.active {
+        background-color: $clr1;
+        color: $clr2;
+    }
+}
+
+mark {
+    color: $clr1;
+    background-color: transparent;
+}
