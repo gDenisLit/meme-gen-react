@@ -1,10 +1,19 @@
 // COLOR PALETTE
-$clr1: #9C0F48;
-$clr2: #151515;
-$clr3: #5f5c5a;
-$clr4: #70707010;
-$clr5: rgba(163, 161, 161, 0.888);
-
+$clr1: #22252c;
+$clr2: #383b42;
+$clr3: #5970c1;
+$clr4: #ffffff;
+$clr5: #21ac91;
+$clr6: #fefefe;
+$clr7: #22252c;
+$clr8: #939393;
+$clr9: #ebeef3;
+$clr10: #ebeef3;
+$clr11: #ebeef327;
+$clr12: #3d3d3d;
+$clr13: #1e7cd3;
+$clr14: #8f44bb;
+$clr15: #19a59f;
 
 // FONTS
 $f-regular: Dosis-Regular;
@@ -14,8 +23,9 @@ $f-bold: Dosis-Bold;
 $layoutPadding: 50px;
 
 // LAYOUT BREAKPOINTS
-$break-narrow: 640px;
-$break-normal: 960px;
+
+$break-narrow: 600px;
+$break-normal: 800px;
 $break-wide: 1024px;
 
 $padded-break-narrow: $break-narrow + $layoutPadding * 2;

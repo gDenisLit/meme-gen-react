@@ -1,26 +1,29 @@
-// Flex 
-.flex {
-    display: flex;
-}
-.flex.inline-flex {
-    display: inline-flex;
-}
-.align-self-center {
-    align-self: center;
-}
-.flex.align-center {
-    align-items: center;
-}
-.flex.justify-center {
-    justify-content: center;
-}
-.flex.space-between {
-    justify-content: space-around;
-}
-// List 
 .clean-list {
     list-style-type: none;
-    padding: 0;
     margin: 0;
+    padding: 0;
+}
+.flex-row {
+    display: flex;
 }
 
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.content-center {
+    justify-content: center;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.space-between {
+    justify-content: space-between;
+}
+
+.space-around {
+    justify-content: space-around;
+}

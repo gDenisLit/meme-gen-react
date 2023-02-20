@@ -1,6 +1,7 @@
 import { Fragment, useEffect, useState } from "react"
 import { galleryService } from "../services/gallery.service"
 import { Img } from "../models/Img.model"
+import { AppHeader } from "../components/app-header"
 
 export function HomePage() {
 
@@ -17,9 +18,7 @@ export function HomePage() {
 
     return (
         <Fragment>
-            <header>
-                <h1>Hello React with Vite!</h1>
-            </header>
+            <AppHeader />
             <main>
                 <ul>
                     {imgs.length && imgs?.map((img: Img) => {
