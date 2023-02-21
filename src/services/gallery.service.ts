@@ -3,13 +3,18 @@ import { storageService } from "./storage.service"
 import { utilService } from "./util.service"
 
 export const galleryService = {
-    getImgs
+    getImgs,
+    getImgById,
 }
 
 const KEY = 'img_db'
 
 function getImgs(): Promise<Img[]> {
     return storageService.query(KEY)
+}
+
+function getImgById(imgId: string): Promise<Img> {
+    return storageService.get(KEY, imgId)
 }
 
 ; (async () => {

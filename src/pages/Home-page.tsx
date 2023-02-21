@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { galleryService } from "../services/gallery.service"
 import { Img } from "../models/Img.model"
 import { ImgList } from "../components/img-list"
@@ -6,6 +7,7 @@ import { ImgList } from "../components/img-list"
 export function HomePage() {
 
     const [imgs, setImgs] = useState<Img[]>([])
+    const navigate = useNavigate()
 
     useEffect(() => {
         loadImgs()
@@ -18,6 +20,7 @@ export function HomePage() {
 
     function onImgSelect(imgId: string) {
         console.log(imgId)
+        navigate(`editor/${imgId}`)
     }
 
     return (
