@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { galleryService } from "../services/gallery.service"
 import { Img } from "../models/Img.model"
+import { ImgList } from "../components/img-list"
 
 export function HomePage() {
 
@@ -15,17 +16,20 @@ export function HomePage() {
         if (imgs) setImgs(imgs)
     }
 
+    function onImgSelect(imgId: string) {
+        console.log(imgId)
+    }
+
     return (
-        <main>
-            <ul>
-                {imgs.length && imgs?.map((img: Img) => {
-                    return (
-                        <li key={img._id}>
-                            <img src={img.url} alt={img._id} />
-                        </li>
-                    )
-                })}
-            </ul>
+        <main className="home-page main-layout">
+            <section className="home-page__inner">
+                {imgs.length &&
+                    <ImgList
+                        imgs={imgs}
+                        onImgSelect={onImgSelect}
+                    />
+                }
+            </section>
         </main>
     )
 }

@@ -1,0 +1,18 @@
+.img-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: rem(15px);
+
+    .img-preview {
+        img {
+            border-radius: em(10px);
+            cursor: pointer;
+            transition: scale 0.2s;
+
+            &:hover {
+                scale: 1.01;
+
+            }
+        }
+    }
+}

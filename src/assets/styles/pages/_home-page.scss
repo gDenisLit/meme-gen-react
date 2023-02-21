@@ -1,0 +1,9 @@
+.home-page {
+   
+    &__inner {
+        background-color: $clr2;
+        padding: em(12px);
+        border-radius: em(10px);
+    }
+
+}
