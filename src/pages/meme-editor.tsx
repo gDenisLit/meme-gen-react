@@ -1,3 +1,4 @@
+import { EditorTools } from "@/components/editor-tools"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { Canvas } from "../components/canvas"
@@ -20,8 +21,13 @@ export function MemeEditor() {
     }
 
     return (
-        <main className="main-layout">
-            {meme && <Canvas meme={meme} />}
+        <main className="meme-editor main-layout">
+            {meme &&
+                <section className="meme-editor__inner flex-row">
+                    <Canvas meme={meme} />
+                    <EditorTools />
+                </section>
+            }
         </main>
     )
 }

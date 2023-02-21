@@ -1,0 +1,93 @@
+.editor-tools {
+    border-radius: rem(20px);
+    padding: em(10px);
+    font-size: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: $clr2;
+
+    input {
+        border: 5px solid transparent;
+        border-radius: em(35px);
+        padding: em(20px) em(20px);
+        width: 100%;
+    }
+
+    .row {
+
+        .btn {
+            border: none;
+            border-radius: em(8px);
+            background-color: transparent;
+            padding: em(10px);
+            color: $clr4;
+            font-size: 1em;
+            cursor: pointer;
+
+            & span {
+                font-size: em(8px);
+                position: absolute;
+            }
+        }
+
+        &.row1 {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(em(35px), 1fr));
+            gap: em(10px);
+            width: 100%;
+
+            &>:first-child {
+                grid-column: 2;
+                background-color: rgb(15, 193, 228);
+            }
+
+            &>:nth-child(2) {
+                background-color: rgb(66, 208, 66);
+            }
+
+            &>:nth-child(3) {
+                background-color: rgb(234, 37, 37);
+            }
+        }
+
+        &.row2 {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(em(25px), 1fr));
+            gap: em(10px);
+            background-color: $clr15;
+            width: 100%;
+            padding: em(10px);
+            border-radius: em(10px);
+
+            &>:nth-child(6) {
+                grid-column: 1/4;
+                border-radius: em(10px);
+                padding-inline-start: em(10px);
+            }
+
+            .btn {
+                background-color: $clr10;
+                color: $clr1;
+            }
+        }
+
+        &.row3 {
+
+            display: flex;
+            gap: em(10px);
+
+            &>:first-child {
+                background-color: $clr13;
+            }
+
+            &>:nth-child(2) {
+                background-color: $clr14;
+            }
+
+            &>:nth-child(3) {
+                background-color: rgb(146, 158, 5);
+            }
+        }
+    }
+}
