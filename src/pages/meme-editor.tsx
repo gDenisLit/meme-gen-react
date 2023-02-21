@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
+import { Canvas } from "../components/canvas"
 import { Meme } from "../models/Meme.model"
 import { memeService } from "../services/meme.service"
 
@@ -19,6 +20,8 @@ export function MemeEditor() {
     }
 
     return (
-        <h1>Meme Editor here</h1>
+        <main className="main-layout">
+            {meme && <Canvas meme={meme} />}
+        </main>
     )
 }

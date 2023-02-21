@@ -24,7 +24,7 @@ function getImgById(imgId: string): Promise<Img> {
             for (let i = 1; i <= 18; i++) {
                 imgs.push({
                     _id: utilService.makeId(),
-                    url: `src/assets/imgs/${i}.jpg`
+                    url: `${import.meta.env.BASE_URL}src/assets/imgs/${i}.jpg`
                 })
             }
             utilService.saveToStorage(KEY, imgs)
