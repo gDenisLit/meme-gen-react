@@ -20,12 +20,26 @@ export function MemeEditor() {
         setMeme(meme)
     }
 
+    function onCrudLine(type: string) {
+        const meme = memeService.updateMeme(type)
+        setMeme(meme)
+    }
+
+    function onLineEdit(key: string, value: string | number) {
+        const meme = memeService.updateLine(key, value)
+        setMeme(meme)
+    }
+
     return (
         <main className="meme-editor main-layout">
             {meme &&
                 <section className="meme-editor__inner flex-row">
                     <Canvas meme={meme} />
-                    <EditorTools />
+                    <EditorTools
+                        meme={meme}
+                        onCrudLine={onCrudLine}
+                        onLineEdit={onLineEdit}
+                    />
                 </section>
             }
         </main>

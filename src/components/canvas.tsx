@@ -18,7 +18,7 @@ export function Canvas({ meme }: Props) {
     const [arcPos, setArcPos] = useState<Pos>({ x: 0, y: 0 })
 
     useEffect(() => { loadCanvas() }, [])
-    useEffect(() => { renderMeme() }, [ctx])
+    useEffect(() => { renderMeme() }, [ctx, meme])
 
     function loadCanvas() {
         if (!canvasRef.current) return
@@ -26,17 +26,7 @@ export function Canvas({ meme }: Props) {
         setCtx(canvasRef.current.getContext('2d'))
     }
 
-    async function renderMeme() {
-        clearCanvas()
-        drawImg()
-    }
-
-    function clearCanvas() {
-        if (!ctx || !elCanvas) return
-        ctx.clearRect(0, 0, elCanvas.width, elCanvas.height)
-    }
-
-    function drawImg() {
+    function renderMeme() {
         if (!ctx || !elCanvas) return
 
         const elImg = new Image()
@@ -55,7 +45,7 @@ export function Canvas({ meme }: Props) {
         if (!ctx || !elCanvas) return
         meme.lines.forEach((line: Line, idx) => {
 
-            ctx.font = line.font
+            ctx.font = `${line.fontSize}px ${line.font}`
             ctx.textAlign = line.textAlign
             ctx.textBaseline = line.textBaseline
             ctx.lineWidth = line.lineWidth
@@ -72,6 +62,7 @@ export function Canvas({ meme }: Props) {
 
     function drawOutline() {
         if (!ctx || !elCanvas) return
+        console.log('drawing outline')
         const { fontSize } = meme.lines[meme.currLine]
         let { x, y, textWidth } = getLinePos(meme.currLine)
         if (!textWidth) textWidth = 10
@@ -110,7 +101,7 @@ export function Canvas({ meme }: Props) {
     }
 
     function handleClick(ev: any) {
-        console.log(ev)
+
     }
 
     function handleMouseMove(ev: any) {
@@ -122,7 +113,7 @@ export function Canvas({ meme }: Props) {
         const distance = Math.sqrt((arcPos.x - clickedPos.x) ** 2 + (arcPos.y - clickedPos.y) ** 2)
         elCanvas.style.cursor = (distance > 10) ? '' : 'nwse-resize'
     }
-    
+
     return (
         <canvas
             ref={canvasRef}
