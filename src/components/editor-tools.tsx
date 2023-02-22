@@ -23,10 +23,10 @@ export function EditorTools({ meme, onCrudLine, onLineEdit }: Props) {
                 <button className="btn" onClick={() => { onCrudLine('remove') }}><FontAwesomeIcon icon={'trash'} /></button>
             </div>
             <div className="row row2">
-                <button className="btn" onClick={() => { onLineEdit('fontSize', 5) }}>A
+                <button className="btn" onClick={() => { onLineEdit('fontSize', 10) }}>A
                     <span><FontAwesomeIcon icon={'plus'} /></span>
                 </button>
-                <button className="btn" onClick={() => { onLineEdit('fontSize', -5) }}>A
+                <button className="btn" onClick={() => { onLineEdit('fontSize', -10) }}>A
                     <span><FontAwesomeIcon icon={'minus'} /></span>
                 </button>
                 <button className="btn" onClick={() => { onLineEdit('textAlign', 'start') }}><FontAwesomeIcon icon={'align-left'} /></button>

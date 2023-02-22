@@ -10,7 +10,7 @@ type PosX = { [key: string]: number }
 
 export const useCanvas = (meme: Meme) => {
 
-    const canvasRef = useRef(null)
+    const canvasRef = useRef<ElCanvas>(null)
     const [elCanvas, setElCanvas] = useState<ElCanvas>()
     const [ctx, setCtx] = useState<Ctx>()
     const [arcPos, setArcPos] = useState<Pos>()
@@ -92,8 +92,9 @@ export const useCanvas = (meme: Meme) => {
 
         const width = elCanvas.width
         const height = elCanvas.height
-        const { txt } = meme.lines[lineIdx]
+        const { txt, fontSize } = meme.lines[lineIdx]
         const textWidth = ctx.measureText(txt).width || 10
+        const textHeight = (elCanvas.width * 0.08) + (fontSize * 0.1)
 
         const posX: PosX = {
             'start': width * 0.03,
@@ -102,22 +103,42 @@ export const useCanvas = (meme: Meme) => {
         }
         const posY: PosY = {
             0: height * 0.03,
-            1: height * 0.85,
+            1: height * 0.83,
             2: height * 0.4
         }
         const x = posX[meme.lines[lineIdx].textAlign]
         const y = posY[lineIdx]
-        return { x, y, textWidth }
+        return { x, y, textWidth, textHeight }
     }
 
-    function isOverResize(clickedPos: Pos) {
-        if (!elCanvas || !arcPos) return
-        const distance = Math.sqrt((arcPos.x - clickedPos.x) ** 2 + (arcPos.y - clickedPos.y) ** 2)
-        return distance < 10
+    function onMouseOver(clickedPos: Pos) {
+        if (!elCanvas || !arcPos || !canvasRef.current) return
+        const distanceFromResize = Math.sqrt((arcPos.x - clickedPos.x) ** 2 + (arcPos.y - clickedPos.y) ** 2)
+        const isOverCurrLine = isOverLine(meme.currLine, clickedPos)
+        const isOverText = meme.lines.some((line, i) => {
+            if (i === meme.currLine) return false
+            return isOverLine(i, clickedPos)
+        })
+        let cursor = ''
+        if (distanceFromResize < 10) cursor = 'nwse-resize'
+        else if(isOverCurrLine) cursor = 'all-scroll'
+        else if (isOverText) cursor = 'pointer'
+        elCanvas.style.cursor = cursor
+    }
+
+    function isOverLine(i: number, clickedPos: Pos) {
+        const { x, y, textWidth, textHeight } = getLinePos(i)
+        return (
+            clickedPos.x > x &&
+            clickedPos.x < x + textWidth! &&
+            clickedPos.y > y &&
+            clickedPos.y < y + textHeight!
+        )
     }
 
     return {
         canvasRef,
-        renderMeme
+        renderMeme,
+        onMouseOver,
     }
 }

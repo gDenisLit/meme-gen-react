@@ -9,8 +9,7 @@ type Props = {
 
 export function Canvas({ meme }: Props) {
 
-
-    const { canvasRef, renderMeme } = useCanvas(meme)
+    const { canvasRef, renderMeme, onMouseOver } = useCanvas(meme)
 
     useEffect(() => {
         renderMeme()
@@ -21,8 +20,7 @@ export function Canvas({ meme }: Props) {
             x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
             y: ev.pageY - ev.target.offsetTop - ev.target.clientTop,
         }
-        // if (isOverResize(clickedPos)) console.log('inside')
-
+        onMouseOver(clickedPos)
     }
 
     return (
