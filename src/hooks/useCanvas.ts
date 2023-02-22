@@ -82,6 +82,7 @@ export const useCanvas = (meme: Meme) => {
             y: y + bottomRight + elCanvas.height * 0.01
         }
         ctx.beginPath()
+        ctx.fillStyle = '#fff'
         ctx.arc(arcPos.x, arcPos.y, elCanvas.width * 0.015, 0, 2 * Math.PI)
         ctx.fill()
         setArcPos(arcPos)

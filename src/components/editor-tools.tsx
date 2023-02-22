@@ -38,11 +38,11 @@ export function EditorTools({ meme, onCrudLine, onLineEdit }: Props) {
                 </select>
                 <button className="btn">
                     <input type="color" name="strokeStyle" onChange={handleInput} value={line?.strokeStyle} />
-                    <FontAwesomeIcon icon={'fill-drip'} />
+                    <FontAwesomeIcon icon={'paint-brush'} />
                 </button>
                 <button className="btn">
                     <input type="color" name="fillStyle" onChange={handleInput} value={line?.fillStyle} />
-                    <FontAwesomeIcon icon={'paint-brush'} />
+                    <FontAwesomeIcon icon={'fill-drip'} />
                 </button>
             </div>
             <div className="row row3">
