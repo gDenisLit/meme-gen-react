@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom/client'
 import App from '.'
 import './index.scss'
-import { icons } from '@/hooks/icons'
+import { icons } from '@/plugins/icons'
 import { library } from '@fortawesome/fontawesome-svg-core'
 
 library.add(...icons)

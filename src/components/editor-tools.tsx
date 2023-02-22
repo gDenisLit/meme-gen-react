@@ -13,10 +13,10 @@ export function EditorTools({ meme, onCrudLine, onLineEdit }: Props) {
         const { name, value } = target
         onLineEdit(name, value)
     }
-    const { txt, strokeStyle, fillStyle, font } = meme.lines[meme.currLine]
+    const line = meme.lines[meme.currLine]
     return (
         <section className="editor-tools flex-column items-center">
-            <input type="text" placeholder="Enter text here" name="txt" onChange={handleInput} value={txt} />
+            <input type="text" placeholder="Enter text here" name="txt" onChange={handleInput} value={line?.txt || ' '} />
             <div className="row row1">
                 <button className="btn" onClick={() => { onCrudLine('switch') }}><FontAwesomeIcon icon={'arrow-up-arrow-down'} /></button>
                 <button className="btn" onClick={() => { onCrudLine('add') }}><FontAwesomeIcon icon={'plus'} /></button>
@@ -32,16 +32,16 @@ export function EditorTools({ meme, onCrudLine, onLineEdit }: Props) {
                 <button className="btn" onClick={() => { onLineEdit('textAlign', 'start') }}><FontAwesomeIcon icon={'align-left'} /></button>
                 <button className="btn" onClick={() => { onLineEdit('textAlign', 'center') }}><FontAwesomeIcon icon={'align-center'} /></button>
                 <button className="btn" onClick={() => { onLineEdit('textAlign', 'end') }}><FontAwesomeIcon icon={'align-right'} /></button>
-                <select onChange={handleInput} name="font" value={font}>
+                <select onChange={handleInput} name="font" value={line?.font}>
                     <option value="Impact">Impact</option>
                     <option value="Ariel">Ariel</option>
                 </select>
                 <button className="btn">
-                    <input type="color" name="strokeStyle" onChange={handleInput} value={strokeStyle} />
+                    <input type="color" name="strokeStyle" onChange={handleInput} value={line?.strokeStyle} />
                     <FontAwesomeIcon icon={'fill-drip'} />
                 </button>
                 <button className="btn">
-                    <input type="color" name="fillStyle" onChange={handleInput} value={fillStyle} />
+                    <input type="color" name="fillStyle" onChange={handleInput} value={line?.fillStyle} />
                     <FontAwesomeIcon icon={'paint-brush'} />
                 </button>
             </div>

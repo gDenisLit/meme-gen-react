@@ -40,7 +40,6 @@ function updateLine(key: string, value: string | number) {
         val += value
         line[key] = val
     }
-    console.log(meme)
     utilService.saveToStorage(KEY, meme)
     return meme
 }
@@ -58,4 +57,3 @@ function addNewLine(meme: Meme) {
 function removeLine(meme: Meme) {
     meme.lines.splice(meme.currLine, 1)
 }
-

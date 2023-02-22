@@ -19,7 +19,6 @@ export function HomePage() {
     }
 
     function onImgSelect(imgId: string) {
-        console.log(imgId)
         navigate(`editor/${imgId}`)
     }
 

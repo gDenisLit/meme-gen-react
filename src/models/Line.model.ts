@@ -17,7 +17,7 @@ export class Line {
         this._id = utilService.makeId()
         this.txt = 'Your Text'
         this.fontSize = 50
-        this.textAlign = 'start'
+        this.textAlign = 'center'
         this.strokeStyle = '#000000'
         this.fillStyle = '#ffffff'
         this.font = `Impact`
