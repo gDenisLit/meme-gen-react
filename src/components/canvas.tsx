@@ -1,5 +1,4 @@
-import { Line } from "@/models/Line.model"
-import { useEffect, useRef, useState } from "react"
+import { useEffect } from "react"
 import { Meme } from "../models/Meme.model"
 import { useCanvas } from "@/hooks/useCanvas"
 
@@ -9,24 +8,19 @@ type Props = {
 
 export function Canvas({ meme }: Props) {
 
-    const { canvasRef, renderMeme, onMouseOver } = useCanvas(meme)
-
-    useEffect(() => {
-        renderMeme()
-    }, [meme])
-
-    function handleMouseMove(ev: any) {
-        const clickedPos = {
-            x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
-            y: ev.pageY - ev.target.offsetTop - ev.target.clientTop,
-        }
-        onMouseOver(clickedPos)
-    }
+    const {
+        canvasRef,
+        initCanvas,
+        onMouseOver,
+        onMouseDown,
+    } = useCanvas(meme)
+    useEffect(initCanvas, [])
 
     return (
         <canvas
             ref={canvasRef}
-            onMouseMove={handleMouseMove}
+            onMouseMove={onMouseOver}
+            onMouseDown={onMouseDown}
         />
     )
 }

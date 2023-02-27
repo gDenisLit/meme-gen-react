@@ -10,6 +10,7 @@ export const memeService = {
     getMeme,
     updateMeme,
     updateLine,
+    setCurrLine
 }
 
 async function getMeme(imgId: string) {
@@ -56,4 +57,11 @@ function addNewLine(meme: Meme) {
 
 function removeLine(meme: Meme) {
     meme.lines.splice(meme.currLine, 1)
+}
+
+function setCurrLine(lineIdx: number) {
+    const meme: Meme = utilService.loadFromStorage(KEY)
+    meme.currLine = lineIdx
+    utilService.saveToStorage(KEY, meme)
+    return meme
 }

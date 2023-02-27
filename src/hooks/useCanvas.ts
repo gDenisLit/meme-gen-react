@@ -1,8 +1,9 @@
 import { Line } from "@/models/Line.model"
 import { Meme } from "@/models/Meme.model"
 import { useEffect, useRef, useState } from "react"
+import { eventBus } from "@/services/event-bus.service"
 
-type ElCanvas = HTMLCanvasElement
+type ElCanvas = HTMLCanvasElement | null
 type Ctx = CanvasRenderingContext2D | null
 type Pos = { x: number, y: number, textWidth?: number }
 type PosY = { [idx: number]: number }
@@ -11,27 +12,22 @@ type PosX = { [key: string]: number }
 export const useCanvas = (meme: Meme) => {
 
     const canvasRef = useRef<ElCanvas>(null)
-    const [elCanvas, setElCanvas] = useState<ElCanvas>()
-    const [ctx, setCtx] = useState<Ctx>()
+    const ctxRef = useRef<Ctx>(null)
     const [arcPos, setArcPos] = useState<Pos>()
 
-    useEffect(() => {
+    function initCanvas() {
         if (!canvasRef.current) return
-        setElCanvas(canvasRef.current)
-    })
-
-    useEffect(() => {
-        if (!elCanvas) return
-        const ctx = elCanvas.getContext('2d')
-        setCtx(ctx)
-    }, [elCanvas])
-
-    useEffect(() => {
-        if (!ctx) return
+        ctxRef.current = canvasRef.current.getContext('2d')
         renderMeme()
-    }, [ctx])
+    }
+
+    useEffect(() => {
+        renderMeme()
+    }, [meme])
 
     function renderMeme() {
+        const elCanvas = canvasRef.current
+        const ctx = ctxRef.current
         if (!ctx || !elCanvas) return
 
         const elImg = new Image()
@@ -47,8 +43,10 @@ export const useCanvas = (meme: Meme) => {
     }
 
     function drawLines() {
+        const elCanvas = canvasRef.current
+        const ctx = ctxRef.current
         if (!ctx || !elCanvas) return
-        if (!meme.lines.length) return
+
         meme.lines.forEach((line: Line, idx) => {
             ctx.font = `${(elCanvas.width * 0.08) + (line.fontSize * 0.1)}px ${line.font}`
             ctx.textAlign = 'start'
@@ -66,7 +64,10 @@ export const useCanvas = (meme: Meme) => {
     }
 
     function drawOutline() {
+        const elCanvas = canvasRef.current
+        const ctx = ctxRef.current
         if (!ctx || !elCanvas) return
+
         const { fontSize } = meme.lines[meme.currLine]
         const bottomRight = (elCanvas.width * 0.08) + (fontSize * 0.1)
         let { x, y, textWidth } = getLinePos(meme.currLine)
@@ -89,6 +90,8 @@ export const useCanvas = (meme: Meme) => {
     }
 
     function getLinePos(lineIdx: number) {
+        const elCanvas = canvasRef.current
+        const ctx = ctxRef.current
         if (!elCanvas || !ctx) return { x: 0, y: 0 }
 
         const width = elCanvas.width
@@ -112,22 +115,33 @@ export const useCanvas = (meme: Meme) => {
         return { x, y, textWidth, textHeight }
     }
 
-    function onMouseOver(clickedPos: Pos) {
-        if (!elCanvas || !arcPos || !canvasRef.current) return
+    function onMouseOver(ev: any) {
+        const elCanvas = canvasRef.current
+        if (!elCanvas || !arcPos) return
+
+        const clickedPos = getClickedPos(ev)
         const distanceFromResize = Math.sqrt((arcPos.x - clickedPos.x) ** 2 + (arcPos.y - clickedPos.y) ** 2)
         const isOverCurrLine = isOverLine(meme.currLine, clickedPos)
         const isOverText = meme.lines.some((line, i) => {
-            if (i === meme.currLine) return false
-            return isOverLine(i, clickedPos)
+            return (i === meme.currLine) ? false : isOverLine(i, clickedPos)
         })
         let cursor = ''
         if (distanceFromResize < 10) cursor = 'nwse-resize'
-        else if(isOverCurrLine) cursor = 'all-scroll'
+        else if (isOverCurrLine) cursor = 'all-scroll'
         else if (isOverText) cursor = 'pointer'
         elCanvas.style.cursor = cursor
     }
 
+    function getClickedPos(ev: any) {
+        const { offsetLeft, clientLeft, offsetTop, clientTop } = ev.target
+        return {
+            x: ev.pageX - offsetLeft - clientLeft,
+            y: ev.pageY - offsetTop - clientTop,
+        }
+    }
+
     function isOverLine(i: number, clickedPos: Pos) {
+
         const { x, y, textWidth, textHeight } = getLinePos(i)
         return (
             clickedPos.x > x &&
@@ -137,9 +151,22 @@ export const useCanvas = (meme: Meme) => {
         )
     }
 
+    function onMouseDown(ev: any) {
+        meme.lines.forEach((line, i) => {
+            const clickedPos = getClickedPos(ev)
+            const isClickOnLine = isOverLine(i, clickedPos)
+            if (isClickOnLine) {
+                eventBus.emit('switch-line', i)
+                console.log('clicked on line')
+            }
+        })
+    }
+
     return {
         canvasRef,
-        renderMeme,
+        initCanvas,
         onMouseOver,
+        onMouseDown
     }
 }
+

@@ -1,5 +1,6 @@
 import { EditorTools } from "@/components/editor-tools"
-import { useEffect, useState } from "react"
+import { eventBus } from "@/services/event-bus.service"
+import { useEffect, useRef, useState } from "react"
 import { useParams } from "react-router-dom"
 import { Canvas } from "../components/canvas"
 import { Meme } from "../models/Meme.model"
@@ -9,9 +10,11 @@ export function MemeEditor() {
 
     const [meme, setMeme] = useState<Meme>()
     const { id } = useParams()
+    const subscribeRef = useRef(eventBus.on('switch-line', onSetLine))
 
     useEffect(() => {
         loadMeme()
+        return subscribeRef.current()
     }, [id])
 
     async function loadMeme() {
@@ -27,6 +30,11 @@ export function MemeEditor() {
 
     function onLineEdit(key: string, value: string | number) {
         const meme = memeService.updateLine(key, value)
+        setMeme(meme)
+    }
+
+    function onSetLine(lineIdx: number) {
+        const meme = memeService.setCurrLine(lineIdx)
         setMeme(meme)
     }
 
